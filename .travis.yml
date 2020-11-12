@@ -4,9 +4,24 @@ language: generic
 services:
   - docker
 
+# Travis step 1
 before_install:
   - docker build -t malves92/docker-react -f Dockerfile.dev .
 
+# Travis step 2
 script:
   - docker run -e CI=true malves92/docker-react npm run test
 
+# Travis step 3
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-west-2"
+#   app: "docker" # The created App name in Beanstalk
+#   env: "Docker-env" # From Beanstalk
+#   bucket_name: "S3.BUCKET.ID"
+#   bucket_path: "docker"
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: "$AWS_SECRET_KEY"
